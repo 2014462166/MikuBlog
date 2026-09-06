@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays } from "lucide-react";
 import { getAllChatters, getChatter } from "@/lib/content";
 import { formatDate } from "@/lib/date";
-import { markdownToHtml } from "@/lib/markdown";
+import { renderMarkdown } from "@/lib/markdown";
+import ArticleToc from "@/components/ArticleToc";
 
 export const dynamicParams = false;
 
@@ -32,7 +33,7 @@ export default async function ChatterDetailPage({
   const chatter = getChatter(slug);
   if (!chatter) notFound();
 
-  const html = await markdownToHtml(chatter.content);
+  const { html, toc } = await renderMarkdown(chatter.content);
 
   return (
     <article>

@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays } from "lucide-react";
 import { getAllPosts, getPost } from "@/lib/content";
 import { formatDate } from "@/lib/date";
-import { markdownToHtml } from "@/lib/markdown";
+import { renderMarkdown } from "@/lib/markdown";
+import ArticleToc from "@/components/ArticleToc";
 
 export const dynamicParams = false;
 
@@ -35,7 +36,7 @@ export default async function PostPage({
   const post = getPost(slug);
   if (!post) notFound();
 
-  const html = await markdownToHtml(post.content);
+  const { html, toc } = await renderMarkdown(post.content);
   const plainLen = post.content.replace(/[#>*`\-\d.\[\]()!|]/g, "").trim().length;
 
   return (
@@ -87,6 +88,9 @@ export default async function PostPage({
               {post.description}
             </p>
           )}
+
+          {/* 本页概览：点击跳转对应小标题 */}
+          <ArticleToc items={toc} />
 
           <div className="mt-8">
             {/* 渲染后的 Markdown */}
