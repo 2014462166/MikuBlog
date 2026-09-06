@@ -26,7 +26,7 @@ export const siteConfig = {
   // ⚠️ 留空待你填入（填好后首页自动替换 TODO 占位）：
   //  阿里云 OSS：https://你的bucket.oss-cn-xxx.aliyuncs.com/avatar.png
   //  本地备选：  /avatar.png（把图放进 public/ 即可，会随站点一起发布）
-  avatar: "",
+  avatar: "https://mymikublog.oss-cn-beijing.aliyuncs.com/avatar.png",
   // 博客链接（线上实际地址）
   url: "https://2014462166.github.io/MikuBlog",
 
@@ -34,7 +34,7 @@ export const siteConfig = {
   // 方案A 本地：把图放进 public/backgrounds/ 即自动生效，无需配置；
   // 方案B 阿里云 OSS：在下面填入直链（可多条）：
   //   例如 ["https://xxx.oss-cn-hangzhou.aliyuncs.com/bg-1.jpg", "..."]
-  backgrounds: [] as string[],
+  backgrounds: ["https://mymikublog.oss-cn-beijing.aliyuncs.com/bg-1.jpg"] as string[],
 
   // ---------- 社交 ----------
   socials: {

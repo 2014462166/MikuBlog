@@ -40,9 +40,9 @@
 // "/music/你的文件名.mp3" 即可（GitHub 单文件建议 <100MB）。
 // ============================================================
 const OSS_SRC = {
-  song1: "", // ← 待填：第一首 OSS 直链
-  song2: "", // ← 待填：第二首 OSS 直链
-  song3: "", // ← 待填：第三首 OSS 直链
+  song1: "https://mymikublog.oss-cn-beijing.aliyuncs.com/1n%20-%20%E3%82%A2%E3%82%A4%E3%83%AD%E3%83%8B%28pianover%29.mp3", // ← 待填：第一首 OSS 直链
+  song2: "https://mymikublog.oss-cn-beijing.aliyuncs.com/%E6%9D%8E%E5%A5%BD%20-%20%E5%BF%83%E5%81%9A%E3%81%97%20%28%E5%BF%83%E7%90%86%E4%BD%9C%E7%94%A8%29%28%E9%92%A2%E7%90%B4%E7%89%88%29.mp3", // ← 待填：第二首 OSS 直链
+  song3: "https://mymikublog.oss-cn-beijing.aliyuncs.com/%E3%81%BE%E3%82%89%E3%81%97%E3%81%83%20-%20%E6%AD%8C%E3%81%AB%E5%BD%A2%E3%81%AF%E3%81%AA%E3%81%84%E3%81%91%E3%82%8C%E3%81%A9%20%28%E8%99%BD%E7%84%B6%E6%AD%8C%E5%A3%B0%E6%97%A0%E5%BD%A2%29.mp3", // ← 待填：第三首 OSS 直链
 };
 
 export type Track = {
