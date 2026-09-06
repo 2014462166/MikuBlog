@@ -37,6 +37,7 @@ export default async function PostPage({
   if (!post) notFound();
 
   const { html, toc } = await renderMarkdown(post.content);
+  const hasToc = toc.some((i) => i.level >= 2 && i.level <= 4);
   const plainLen = post.content.replace(/[#>*`\-\d.\[\]()!|]/g, "").trim().length;
 
   return (
@@ -50,54 +51,65 @@ export default async function PostPage({
         返回文章列表
       </Link>
 
-      <div className="glass mt-3 overflow-hidden rounded-[1.8rem]">
-        {/* 顶部渐变横幅 */}
-        <div
-          aria-hidden
-          className="relative h-2 w-full bg-gradient-to-r from-[#39C5BB] via-[#ff9ec7] to-[#ff5c9e]"
-        />
-
-        <div className="p-6 sm:p-10">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[var(--ink-3)]">
-            <span className="flex items-center gap-1.5">
-              <CalendarDays className="h-4 w-4" />
-              {formatDate(post.date)}
-            </span>
-            <span>·</span>
-            <span>约 {plainLen > 0 ? plainLen : post.content.length} 字</span>
-            {post.tags.length > 0 && (
-              <>
-                <span>·</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {post.tags.map((t) => (
-                    <span key={t} className="chip cursor-default">
-                      # {t}
-                    </span>
-                  ))}
-                </div>
-              </>
-            )}
+      {/* 左侧：流水线概览 | 右侧：正文 */}
+      <div
+        className={`mt-3 grid items-start gap-5 ${
+          hasToc ? "lg:grid-cols-[230px_minmax(0,1fr)]" : ""
+        }`}
+      >
+        {/* 概览（桌面固定在左侧，可滚动；窄屏显示在正文上方） */}
+        {hasToc && (
+          <div className="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7.5rem)] lg:overflow-y-auto no-scrollbar">
+            <ArticleToc items={toc} />
           </div>
+        )}
 
-          <h1 className="mt-4 text-2xl font-black leading-snug text-[var(--ink)] sm:text-4xl">
-            {post.title}
-          </h1>
+        <div className="glass min-w-0 overflow-hidden rounded-[1.8rem]">
+          {/* 顶部渐变横幅 */}
+          <div
+            aria-hidden
+            className="relative h-2 w-full bg-gradient-to-r from-[#39C5BB] via-[#ff9ec7] to-[#ff5c9e]"
+          />
 
-          {post.description && (
-            <p className="mt-3 border-l-2 border-[var(--accent)] pl-4 text-[15px] leading-relaxed text-[var(--ink-2)]">
-              {post.description}
-            </p>
-          )}
+          <div className="p-6 sm:p-10">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[var(--ink-3)]">
+              <span className="flex items-center gap-1.5">
+                <CalendarDays className="h-4 w-4" />
+                {formatDate(post.date)}
+              </span>
+              <span>·</span>
+              <span>约 {plainLen > 0 ? plainLen : post.content.length} 字</span>
+              {post.tags.length > 0 && (
+                <>
+                  <span>·</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {post.tags.map((t) => (
+                      <span key={t} className="chip cursor-default">
+                        # {t}
+                      </span>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
 
-          {/* 本页概览：点击跳转对应小标题 */}
-          <ArticleToc items={toc} />
+            <h1 className="mt-4 text-2xl font-black leading-snug text-[var(--ink)] sm:text-4xl">
+              {post.title}
+            </h1>
 
-          <div className="mt-8">
-            {/* 渲染后的 Markdown */}
-            <div
-              className="md-body"
-              dangerouslySetInnerHTML={{ __html: html }}
-            />
+            {post.description && (
+              <p className="mt-3 border-l-2 border-[var(--accent)] pl-4 text-[15px] leading-relaxed text-[var(--ink-2)]">
+                {post.description}
+              </p>
+            )}
+
+            <div className="mt-8">
+              {/* 渲染后的 Markdown */}
+              <div
+                className="md-body"
+                dangerouslySetInnerHTML={{ __html: html }}
+              />
+            </div>
           </div>
         </div>
       </div>
