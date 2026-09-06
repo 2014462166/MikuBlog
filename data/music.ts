@@ -45,19 +45,19 @@ export const defaultTracks: Track[] = [
   {
     id: "calm-1",
     title: "アイロニ",
-    artist: "1n",
+    artist: "miku",
     src: "/music/1n - アイロニ(pianover).mp3",
   },
   {
     id: "calm-2",
     title: "心做し",
-    artist: "李好",
+    artist: "miku",
     src: "/music/李好 - 心做し (心理作用)(钢琴版).mp3",
   },
   {
     id: "calm-3",
     title: "歌に形はないけれど",
-    artist: "まらしぃ",
+    artist: "miku",
     src: "/music/まらしぃ - 歌に形はないけれど (虽然歌声无形).mp3",
   },
 ];

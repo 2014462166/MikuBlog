@@ -13,13 +13,13 @@ export type Social = {
 
 export const siteConfig = {
   // ---------- 站点 ----------
-  title: "你的昵称 · 玻璃小屋", // 浏览器标题 / 社交卡片标题
-  titleShort: "玻璃小屋", // 页脚等处的简称
-  author: "你的昵称", // 博主昵称
-  role: "写代码 · 记生活 · 爱折腾", // 副标题/签名
-  bio: "这里是我的个人博客：记录技术踩坑、项目折腾，以及生活里的一点点杂谈。整站采用极致毛玻璃 + 昼夜自适应设计，欢迎常来坐坐。",
-  description: "个人博客 —— 文章、项目与杂谈，沉浸式音乐播放器 & 昼夜双主题。",
-  keywords: "blog, 个人博客, Next.js 15, React 19, Tailwind CSS 4, 毛玻璃",
+  title: "TheUndertaker · Miku小屋", // 浏览器标题 / 社交卡片标题
+  titleShort: "Miku小屋", // 页脚等处的简称
+  author: "TheUndertaker", // 博主昵称
+  role: "技术宅 · 二次元爱好者", // 副标题/签名
+  bio: "技术宅，二次元爱好者。喜欢写代码、听轻音乐，也乐意把生活里的小确幸都记录下来。",
+  description: "个人博客 —— 技术、音乐与二次元的日常。",
+  keywords: "blog, 个人博客, 技术宅, 二次元, 初音未来, Next.js 15",
   since: 2026, // 建站年份
 
   // 头像（建议 512x512 方形）
@@ -50,16 +50,15 @@ export const siteConfig = {
     greeting: "Hi，我是", // 打招呼文案
     // 打字机滚动文案（可自由增删）
     typed: [
-      "一名全栈开发者",
-      "React / Next.js 爱好者",
-      "UI 毛玻璃控",
-      "终身学习者",
+      "技术宅一枚",
+      "二次元爱好者",
+      "React / Next.js 折腾家",
+      "轻音乐收藏家",
     ],
   },
 
   // ---------- 页脚 ----------
-  footer:
-    "本站由 Next.js 15 + React 19 + Tailwind CSS 4 构建 · 纯静态导出，可部署于 GitHub Pages / 任意云存储",
+  footer: "Miku小屋 · 记录代码、音乐与二次元的日常",
 };
 
 export default siteConfig;
