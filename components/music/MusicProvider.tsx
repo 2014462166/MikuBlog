@@ -31,7 +31,7 @@ export default function MusicProvider({ children }: { children: React.ReactNode 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const indexRef = useRef(0);
   const repeatRef = useRef<RepeatMode>("all");
-  const volumeRef = useRef(0.85);
+  const volumeRef = useRef(0.39);
   const mutedRef = useRef(false);
 
   const getAudio = (): HTMLAudioElement | null => {
@@ -47,9 +47,7 @@ export default function MusicProvider({ children }: { children: React.ReactNode 
     a.preload = "none";
 
     try {
-      const v = localStorage.getItem(VOLUME_KEY);
-      if (v !== null) setVolume(Number(v));
-      setMuted(localStorage.getItem(MUTE_KEY) === "1");
+      // 音量/静音不恢复历史值：保持“默认 39% 且可听”
       const r = localStorage.getItem(REPEAT_KEY) as RepeatMode | null;
       if (r === "off" || r === "one") setRepeat(r);
     } catch {
@@ -200,6 +198,39 @@ export default function MusicProvider({ children }: { children: React.ReactNode 
   const lyrics: LyricLine[] = useMemo(() => parseLrc(current?.lrc), [current]);
   const lyricIndex = activeLyricIndex(lyrics, currentTime);
   const progress = duration > 0 ? currentTime / duration : 0;
+
+  /* 默认播放：进入页面自动尝试播放第一首。
+     若被浏览器自动播放策略拦截，则改为“首次任意点击页面”时自动开播。 */
+  const autoStartedRef = useRef(false);
+  useEffect(() => {
+    const a = getAudio();
+    const first = tracks[0];
+    if (!a || !first?.src) return;
+    const timer = setTimeout(() => {
+      if (autoStartedRef.current) return;
+      autoStartedRef.current = true;
+      a.src = asset(first.src);
+      a.volume = mutedRef.current ? 0 : volumeRef.current;
+      a.load();
+      a.play()
+        .then(() => {
+          setStarted(true);
+          setPlaying(true);
+        })
+        .catch(() => {
+          const unlock = () => {
+            document.removeEventListener("pointerdown", unlock);
+            document.removeEventListener("keydown", unlock);
+            if (!audioRef.current || !audioRef.current.paused) return;
+            startAt(0);
+          };
+          document.addEventListener("pointerdown", unlock);
+          document.addEventListener("keydown", unlock);
+        });
+    }, 600);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
