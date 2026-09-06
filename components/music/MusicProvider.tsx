@@ -23,10 +23,12 @@ export default function MusicProvider({ children }: { children: React.ReactNode 
   const [started, setStarted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(0.85);
+  const [volume, setVolume] = useState(0.39); // 默认音量 39%
   const [muted, setMuted] = useState(false);
   const [repeat, setRepeat] = useState<RepeatMode>("all");
   const [expanded, setExpanded] = useState(false);
+  /** 自动播放被策略拦截时的“点击页面开启声音”提示 */
+  const [tapToSound, setTapToSound] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const indexRef = useRef(0);
@@ -199,35 +201,62 @@ export default function MusicProvider({ children }: { children: React.ReactNode 
   const lyricIndex = activeLyricIndex(lyrics, currentTime);
   const progress = duration > 0 ? currentTime / duration : 0;
 
-  /* 默认播放：进入页面自动尝试播放第一首。
-     若被浏览器自动播放策略拦截，则改为“首次任意点击页面”时自动开播。 */
+  /* 默认播放：
+     ① 先尝试“带声音自动播放”（浏览器允许时最理想）；
+     ② 若被自动播放策略拦截 → 立即以【静音】状态自动开播（动画/进度照常跑），
+        并提示“点击页面开启声音”，任意一次点击即切到默认音量；
+     ③ 极端情况（连静音播放都被拒）→ 首次任意点击时才开始。 */
   const autoStartedRef = useRef(false);
   useEffect(() => {
     const a = getAudio();
     const first = tracks[0];
     if (!a || !first?.src) return;
+
     const timer = setTimeout(() => {
       if (autoStartedRef.current) return;
       autoStartedRef.current = true;
-      a.src = asset(first.src);
-      a.volume = mutedRef.current ? 0 : volumeRef.current;
-      a.load();
-      a.play()
+
+      const boot = (mute: boolean) => {
+        a.muted = mute;
+        a.src = asset(first.src);
+        a.volume = mute || mutedRef.current ? 0 : volumeRef.current;
+        a.load();
+        return a.play();
+      };
+
+      const addUnlock = () => {
+        const unlock = () => {
+          document.removeEventListener("pointerdown", unlock);
+          document.removeEventListener("keydown", unlock);
+          const el = audioRef.current;
+          if (!el) return;
+          el.muted = mutedRef.current ? true : false;
+          el.volume = mutedRef.current ? 0 : volumeRef.current;
+          setTapToSound(false);
+          if (el.paused) startAt(0);
+        };
+        document.addEventListener("pointerdown", unlock);
+        document.addEventListener("keydown", unlock);
+      };
+
+      boot(false)
         .then(() => {
           setStarted(true);
           setPlaying(true);
         })
         .catch(() => {
-          const unlock = () => {
-            document.removeEventListener("pointerdown", unlock);
-            document.removeEventListener("keydown", unlock);
-            if (!audioRef.current || !audioRef.current.paused) return;
-            startAt(0);
-          };
-          document.addEventListener("pointerdown", unlock);
-          document.addEventListener("keydown", unlock);
+          boot(true)
+            .then(() => {
+              setStarted(true);
+              setPlaying(true);
+              setTapToSound(true);
+              addUnlock();
+            })
+            .catch(() => {
+              addUnlock();
+            });
         });
-    }, 600);
+    }, 500);
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -253,6 +282,13 @@ export default function MusicProvider({ children }: { children: React.ReactNode 
             ) : (
               <LaunchButton onClick={() => setExpanded(true)} />
             ))}
+          {tapToSound && (
+            <div className="pointer-events-none fixed inset-x-0 bottom-24 z-[65] flex justify-center px-4">
+              <div className="glass-strong animate-pulse rounded-full px-4 py-2 text-xs font-bold text-[var(--ink)]">
+                ♪ 音乐已开始播放，点击页面任意位置开启声音
+              </div>
+            </div>
+          )}
           <PlayerOverlay
             open={expanded}
             tracks={tracks}

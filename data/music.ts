@@ -60,19 +60,19 @@ export const defaultTracks: Track[] = [
   {
     id: "calm-1",
     title: "アイロニ（钢琴版）",
-    artist: "1n",
+    artist: "miku",
     src: OSS_SRC.song1,
   },
   {
     id: "calm-2",
     title: "心做し（钢琴版）",
-    artist: "李好",
+    artist: "miku",
     src: OSS_SRC.song2,
   },
   {
     id: "calm-3",
     title: "歌に形はないけれど（钢琴版）",
-    artist: "まらしぃ",
+    artist: "miku",
     src: OSS_SRC.song3,
   },
 ];
