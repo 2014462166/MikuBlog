@@ -1,5 +1,5 @@
 // data/projects.ts —— 项目列表
-// url/github 留空会在卡片上显示"待补充"，方便你先搭骨架后补充
+// url/github 留空会在卡片上显示"待补充"
 
 export type Project = {
   name: string;
@@ -16,28 +16,24 @@ export type Project = {
 
 export const projectsData: Project[] = [
   {
+    name: "循环闹钟 CycleAlarm（kundian4-mobile）",
+    description:
+      "基于 Expo SDK 57 + React Native 的多功能周期提醒 App：闹钟支持“每隔 N 天 / 每周 / 每月 / 仅一次”四种循环方式；内置待办清单、记账、日记三个轻量工具。纯本地存储、零后端。",
+    highlight: "Android 原生全屏响铃（锁屏可用）+ AlarmManager 精确调度",
+    tags: ["React Native", "Expo SDK 57", "Kotlin", "TypeScript"],
+    github: "https://github.com/2014462166/kundian4-mobile",
+    icon: "⏰",
+    featured: true,
+  },
+  {
     name: "我的个人博客 MyBlog",
-    description: "你正在看的这个站点：Next.js 15 App Router + React 19 + Tailwind CSS 4 极致毛玻璃设计，沉浸式音乐播放器、昼夜模式与文章/项目/杂谈分类。",
+    description:
+      "你正在看的这个站点：Next.js 15 App Router + React 19 + Tailwind CSS 4 毛玻璃风格，沉浸式音乐播放器、昼夜模式与文章/项目/杂谈分类，静态导出部署于 GitHub Pages，素材托管在阿里云 OSS。",
     highlight: "毛玻璃 × 昼夜双主题 × 全局播放器",
     tags: ["Next.js 15", "React 19", "Tailwind CSS 4"],
-    url: "https://your-name.github.io",
-    github: "https://github.com/",
+    url: "https://2014462166.github.io/MikuBlog",
+    github: "https://github.com/2014462166/MikuBlog",
     icon: "🧊",
     featured: true,
-  },
-  {
-    name: "TodoGlass 待办看板",
-    description: "一个把毛玻璃做进日常效率工具的示例项目：拖拽看板 + 优先级矩阵 + 本地存储。此项目为占位示例，可在 data/projects.ts 中替换成你的真实项目。",
-    highlight: "拖拽看板 · 本地持久化",
-    tags: ["React", "Zustand", "dnd"],
-    icon: "🎯",
-    featured: true,
-  },
-  {
-    name: "Weather Glass 天气小组件",
-    description: "可嵌入任意网页的毛玻璃天气卡片，支持昼夜自动切换与动态天气图标。同样为占位示例，替换成你的作品即可。",
-    highlight: "小组件 · 动态图标",
-    tags: ["Web Component", "Open-Meteo"],
-    icon: "⛅",
   },
 ];
