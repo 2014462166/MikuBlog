@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { defaultTracks, type Track } from "@/data/music";
+import { asset } from "@/lib/site-url";
 import { parseLrc, activeLyricIndex, type LyricLine } from "@/lib/lrc";
 import PlayerDock from "./PlayerDock";
 import PlayerOverlay from "./PlayerOverlay";
@@ -134,7 +135,12 @@ export default function MusicProvider({ children }: { children: React.ReactNode 
     indexRef.current = idx;
     setIndex(idx);
     const t = tracks[idx];
-    a.src = t.src;
+    // 链接尚未配置（OSS 待填）时静默跳过，避免播放报错
+    if (!t.src) {
+      setPlaying(false);
+      return;
+    }
+    a.src = asset(t.src);
     a.volume = mutedRef.current ? 0 : volumeRef.current;
     a.load();
     setCurrentTime(0);

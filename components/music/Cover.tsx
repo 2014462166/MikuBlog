@@ -1,6 +1,7 @@
 "use client";
 
 import type { Track } from "@/data/music";
+import { asset } from "@/lib/site-url";
 
 /** 根据 track 生成稳定的渐变配色（无封面时的兜底 / 氛围背景色）—— 初音青 / 蓝 / 粉 系 */
 const FALLBACK_PALETTES: [string, string, string][] = [
@@ -37,9 +38,8 @@ export default function Cover({ track, className = "", spinning = false, playing
       }}
     >
       {track.cover ? (
-        // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={track.cover}
+          src={asset(track.cover)}
           alt={track.title}
           className="absolute inset-0 h-full w-full object-cover"
           loading="lazy"

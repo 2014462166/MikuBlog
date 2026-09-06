@@ -11,6 +11,7 @@ import {
 import siteConfig from "@/siteConfig";
 import { getAllChatters, getAllPosts } from "@/lib/content";
 import { publicPathExists } from "@/lib/public-file";
+import { asset } from "@/lib/site-url";
 import { projectsData } from "@/data/projects";
 import PostCard from "@/components/PostCard";
 import TypedHero from "@/components/TypedHero";
@@ -145,7 +146,7 @@ export default function Home() {
                 <div className="relative aspect-square overflow-hidden rounded-full">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={siteConfig.avatar}
+                    src={asset(siteConfig.avatar)}
                     alt={`${siteConfig.author} 的头像`}
                     className="h-full w-full object-cover"
                   />
@@ -164,9 +165,9 @@ export default function Home() {
                     TODO
                   </p>
                   <p className="text-[11px] leading-relaxed text-[var(--ink-3)]">
-                    把头像放到 public/avatar.png
+                    在 siteConfig.ts → avatar 填入你的图片直链
                     <br />
-                    （siteConfig.ts → avatar 已默认该路径）
+                    （阿里云 OSS 或 /avatar.png 均可）
                   </p>
                 </div>
               </div>

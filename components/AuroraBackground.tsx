@@ -9,6 +9,7 @@ import fs from "fs";
 import path from "path";
 import { siteConfig } from "@/siteConfig";
 import { publicPathExists } from "@/lib/public-file";
+import { asset } from "@/lib/site-url";
 import BackgroundSlideshow from "./BackgroundSlideshow";
 
 const STARS = [
@@ -41,17 +42,16 @@ export default function AuroraBackground() {
   const sources = (configured.length > 0 ? configured : autoImages).filter((u) =>
     publicPathExists(u),
   );
-  const backgrounds = sources;
 
   return (
     <div
       aria-hidden
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
     >
-      {backgrounds.length > 0 ? (
+      {sources.length > 0 ? (
         /* ---------- 你的壁纸轮播 ---------- */
         <>
-          <BackgroundSlideshow images={backgrounds} />
+          <BackgroundSlideshow images={sources.map(asset)} />
           {/* 可读性轻纱（昼夜不同） */}
           <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/35 to-white/65 transition-colors duration-700 dark:from-[#06070f]/75 dark:via-[#06070f]/55 dark:to-[#06070f]/80" />
           <div

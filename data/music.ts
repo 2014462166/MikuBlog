@@ -30,6 +30,21 @@
 //   src: "https://my-blog.oss-cn-hangzhou.aliyuncs.com/songs/my-song.mp3",
 // },
 
+// ============================================================
+// ✏️ 阿里云 OSS 待填位置
+// 1) 上传三首 mp3 到 OSS，bucket 设为【公共读】；
+// 2) 依次复制直链粘贴到下面对应位置（形如
+//    https://xxx.oss-cn-hangzhou.aliyuncs.com/songs/song-1.mp3）。
+// 填好后音乐播放器即可正常在线播放。
+// 若暂时想用本地演示：把 mp3 放进 public/music/，然后把下面改成
+// "/music/你的文件名.mp3" 即可（GitHub 单文件建议 <100MB）。
+// ============================================================
+const OSS_SRC = {
+  song1: "", // ← 待填：第一首 OSS 直链
+  song2: "", // ← 待填：第二首 OSS 直链
+  song3: "", // ← 待填：第三首 OSS 直链
+};
+
 export type Track = {
   id: string;
   title: string;
@@ -44,21 +59,21 @@ export type Track = {
 export const defaultTracks: Track[] = [
   {
     id: "calm-1",
-    title: "アイロニ",
-    artist: "miku",
-    src: "/music/1n - アイロニ(pianover).mp3",
+    title: "アイロニ（钢琴版）",
+    artist: "1n",
+    src: OSS_SRC.song1,
   },
   {
     id: "calm-2",
-    title: "心做し",
-    artist: "miku",
-    src: "/music/李好 - 心做し (心理作用)(钢琴版).mp3",
+    title: "心做し（钢琴版）",
+    artist: "李好",
+    src: OSS_SRC.song2,
   },
   {
     id: "calm-3",
-    title: "歌に形はないけれど",
-    artist: "miku",
-    src: "/music/まらしぃ - 歌に形はないけれど (虽然歌声无形).mp3",
+    title: "歌に形はないけれど（钢琴版）",
+    artist: "まらしぃ",
+    src: OSS_SRC.song3,
   },
 ];
 

@@ -22,20 +22,19 @@ export const siteConfig = {
   keywords: "blog, 个人博客, 技术宅, 二次元, 初音未来, Next.js 15",
   since: 2026, // 建站年份
 
-  // 头像（建议 512x512 方形）
-  // 二选一：
-  //  A. 本地上传：把图片放进 public/ 目录，例如把 avatar 重命名成 avatar.png 后写 "/avatar.png"（未上传前首页会显示 TODO 占位）
-  //  B. 图床直链：https://xxx.oss-cn-xxx.aliyuncs.com/avatar.png
-  avatar: "/avatar.png",
+  // ---------- 头像 ----------
+  // ⚠️ 留空待你填入（填好后首页自动替换 TODO 占位）：
+  //  阿里云 OSS：https://你的bucket.oss-cn-xxx.aliyuncs.com/avatar.png
+  //  本地备选：  /avatar.png（把图放进 public/ 即可，会随站点一起发布）
+  avatar: "",
   // 博客链接（线上实际地址）
   url: "https://2014462166.github.io/MikuBlog",
 
-  // ---------- 背景壁纸轮播（初音壁纸/自绘图皆可） ----------
-  // ✅ 自动模式（推荐）：把图片放进 public/backgrounds/ 即可自动淡入淡出轮播，
-  //    支持 jpg/png/webp/gif/avif，无需在这里配置。
-  // 仅当你需要“挑几张 / 自定义顺序”时才手动填路径：
+  // ---------- 背景壁纸（可选，多张自动淡入淡出轮播） ----------
+  // 方案A 本地：把图放进 public/backgrounds/ 即自动生效，无需配置；
+  // 方案B 阿里云 OSS：在下面填入直链（可多条）：
+  //   例如 ["https://xxx.oss-cn-hangzhou.aliyuncs.com/bg-1.jpg", "..."]
   backgrounds: [] as string[],
-  // 例如：backgrounds: ["/backgrounds/bg-2.png", "/backgrounds/bg-1.jpg"],
 
   // ---------- 社交 ----------
   socials: {
