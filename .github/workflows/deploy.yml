@@ -34,6 +34,9 @@ jobs:
 
       - name: Build static site
         run: npm run build
+        env:
+          # 让客户端资源(图片/音频)自动带上仓库子路径前缀，如 /MikuBlog
+          NEXT_PUBLIC_BASE_PATH: ${{ github.event.repository.name == format('{0}.github.io', github.repository_owner) && '' || format('/{0}', github.event.repository.name) }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
