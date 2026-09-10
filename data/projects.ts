@@ -16,6 +16,16 @@ export type Project = {
 
 export const projectsData: Project[] = [
   {
+    name: "拼豆社交网站 PixBead",
+    description:
+      "以「照片一键转拼豆图纸」为核心的创作社区：上传图片 → 自定义尺寸/品牌色板/用色数/抖动/去背景 → 生成图纸 PNG 与色号清单 → 分享、关注、点赞、收藏。Java + Python 双后端，前端毛玻璃清新风，本地已跑通 MVP+ 核心闭环。",
+    highlight: "Java 业务后端 + Python 图像算法双服务，异步转化任务",
+    tags: ["React", "Vite", "Spring Boot", "FastAPI", "MySQL"],
+    github: "https://github.com/2014462166/pixbead",
+    icon: "🧩",
+    featured: true,
+  },
+  {
     name: "循环闹钟 CycleAlarm（kundian4-mobile）",
     description:
       "基于 Expo SDK 57 + React Native 的多功能周期提醒 App：闹钟支持“每隔 N 天 / 每周 / 每月 / 仅一次”四种循环方式；内置待办清单、记账、日记三个轻量工具。纯本地存储、零后端。",
